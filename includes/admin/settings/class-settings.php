@@ -679,6 +679,11 @@ class Affiliate_WP_Settings {
 						'type' => 'rich_editor',
 						'std' => __( 'Congratulations {name}!', 'affiliate-wp' ) . "\n\n" . sprintf( __( 'Your affiliate application on %s has been accepted!', 'affiliate-wp' ), home_url() ) . "\n\n" . __( 'Log into your affiliate area at', 'affiliate-wp' ) . ' {login_url}'
 					),
+					'enable_default_new_referral_emails' => array(
+						'name' => __( 'Enable New Referral Emails by Default', 'affiliate-wp' ),
+						'desc' => __( 'All affiliates will receive new referral notifications by default.', 'affiliate-wp' ),
+						'type' => 'checkbox'
+					),
 					'referral_subject' => array(
 						'name' => __( 'New Referral Email Subject', 'affiliate-wp' ),
 						'desc' => __( 'Enter the subject line for new referral emails sent when affiliates earn referrals.', 'affiliate-wp' ),

@@ -225,9 +225,11 @@ add_action( 'affwp_set_affiliate_status', 'affwp_notify_on_rejected_affiliate_re
  */
 function affwp_notify_on_new_referral( $affiliate_id = 0, $referral ) {
 
-	$user_id = affwp_get_affiliate_user_id( $affiliate_id );
+	$user_id                 = affwp_get_affiliate_user_id( $affiliate_id );
+	$notification_key_exists = metadata_exists( 'user', $user_id, 'affwp_referral_notifications' );
+	$referral_notifications  = $notification_key_exists ? get_user_meta( $user_id, 'affwp_referral_notifications', true ) : affiliate_wp()->settings->get( 'enable_default_new_referral_emails' );
 
-	if( ! get_user_meta( $user_id, 'affwp_referral_notifications', true ) ) {
+	if( ! $referral_notifications ) {
 		return;
 	}
 

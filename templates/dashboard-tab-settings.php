@@ -1,8 +1,12 @@
 <?php
-$affiliate_id      = affwp_get_affiliate_id();
-$affiliate_user_id = affwp_get_affiliate_user_id( $affiliate_id );
-$user_email        = affwp_get_affiliate_email( $affiliate_id );
-$payment_email     = affwp_get_affiliate_payment_email( $affiliate_id, $user_email ); // Fallback to user_email
+$affiliate_id            = affwp_get_affiliate_id();
+$affiliate_user_id       = affwp_get_affiliate_user_id( $affiliate_id );
+$user_email              = affwp_get_affiliate_email( $affiliate_id );
+// Fallback to user_email
+$payment_email           = affwp_get_affiliate_payment_email( $affiliate_id, $user_email );
+// If the affwp_referral_notifications key exists, retrieve the meta value. Otherwise, referral notifications are determined from the global setting enable_default_new_referral_emails.
+$notification_key_exists = metadata_exists( 'user', $affiliate_user_id, 'affwp_referral_notifications' );
+$referral_notifications  = $notification_key_exists ? get_user_meta( $affiliate_user_id, 'affwp_referral_notifications', true ) : affiliate_wp()->settings->get( 'enable_default_new_referral_emails' );
 ?>
 
 <div id="affwp-affiliate-dashboard-profile" class="affwp-tab-content">
@@ -17,7 +21,7 @@ $payment_email     = affwp_get_affiliate_payment_email( $affiliate_id, $user_ema
 		</div>
 
 		<div class="affwp-wrap affwp-send-notifications-wrap">
-			<input id="affwp-referral-notifications" type="checkbox" name="referral_notifications" value="1" <?php checked( true, get_user_meta( $affiliate_user_id, 'affwp_referral_notifications', true ) ); ?>/>
+			<input id="affwp-referral-notifications" type="checkbox" name="referral_notifications" value="1" <?php checked( true, $referral_notifications ); ?>/>
 			<label for="affwp-referral-notifications"><?php _e( 'Enable New Referral Notifications', 'affiliate-wp' ); ?></label>
 		</div>
 
