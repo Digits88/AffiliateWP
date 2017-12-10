@@ -404,7 +404,7 @@ class Endpoints extends Controller {
 	 * @return \stdClass Rate object.
 	 */
 	public function sanitize_rate( $rate ) {
-		$default = affiliate_wp()->settings->get( 'rate' );
+		$default = affiliate_wp()->settings->get( 'referral_rate', 20 );
 
 		return $this->convert_param_to_object( $rate, array(), $default );
 	}
